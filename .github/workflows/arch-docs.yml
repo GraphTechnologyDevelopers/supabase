@@ -18,6 +18,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Trim non-essential directories
+        run: |
+          for dir in test tests __tests__ spec specs benchmarks bench docs documentation \
+                     examples example fixtures migrations assets third_party caffe2 \
+                     .yarn .cache e2e integration_tests testdata; do
+            rm -rf "$dir" || true
+          done
+
       - uses: supermodeltools/arch-docs@main
         id: docs
         with:
